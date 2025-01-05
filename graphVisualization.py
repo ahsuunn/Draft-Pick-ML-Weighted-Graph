@@ -50,23 +50,23 @@ compatibilityGraph.add_weighted_edges_from(compatibilityEdges)
 
 def visualize_graph(graph, title, node_color="lightblue", edge_color="gray"):
     plt.figure(figsize=(12, 12))
-    pos = nx.spring_layout(graph, seed=42)  # Positions for all nodes
+    pos = nx.circular_layout(graph)  # Positions for all nodes
 
     # Draw nodes
-    nx.draw_networkx_nodes(graph, pos, node_color=node_color, node_size=200)
+    nx.draw_networkx_nodes(graph, pos, node_color=node_color, node_size=100)
 
     # Draw edges with weights
-    nx.draw_networkx_edges(graph, pos, edge_color=edge_color, arrowstyle='-|>', arrowsize=20)
+    nx.draw_networkx_edges(graph, pos, edge_color=edge_color, arrowstyle='-|>', arrowsize=10)
 
     # Draw node labels
-    nx.draw_networkx_labels(graph, pos, font_size=10, font_color="black")
+    nx.draw_networkx_labels(graph, pos, font_size=5, font_color="black")
 
     # Draw edge labels (weights)
     edge_labels = nx.get_edge_attributes(graph, 'weight')
-    nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels, font_size=8)
+    nx.draw_networkx_edge_labels(graph, pos, edge_labels=edge_labels, font_size=5)
 
     # Set title
-    plt.title(title, fontsize=15)
+    plt.title(title, fontsize=10)
     plt.axis("off")
     plt.show()
 
