@@ -103,6 +103,7 @@ def get_best_and_worst_picks(team_heroes, opposing_team_heroes, available_heroes
     
     best_picks = sorted_heroes[:5]
     worst_picks = sorted_heroes[-5:]
+    worst_picks = worst_picks[::-1]
     
     return best_picks, worst_picks
 
