@@ -143,7 +143,7 @@ for team_name, picks_in_this_turn in pick_order:
             print(f"{hero} (Total: {score:.2f}, Counter: {counter_score:.2f}, Synergy: {synergy_score:.2f})")
 
         print("\nTop 5 Worst Picks:")
-        for hero, score, counter_score, synergy_score in reversed(worst_picks):  # Flipped order to show the worst first
+        for hero, score, counter_score, synergy_score in reversed(worst_picks): 
             print(f"{hero} (Total: {score:.2f}, Counter: {counter_score:.2f}, Synergy: {synergy_score:.2f})")
 
         while True:
