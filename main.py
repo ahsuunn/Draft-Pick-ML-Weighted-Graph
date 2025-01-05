@@ -127,38 +127,35 @@ for team in teams:
 
 '''PICK PHASE'''
 for team_name, picks_in_this_turn in pick_order:
-    print(f"\nPICK PHASE - {team_name}:")
+    print(f"\n---------- PICK PHASE - {team_name} ----------")
     remaining_picks = picks_in_this_turn
     print(f"{team_name} is picking {remaining_picks} hero(s).")
     
-    team_heroes = teams[team_name]
+    for _ in range(picks_in_this_turn):
+        team_heroes = teams[team_name]
+        opposing_team_name = "Team B" if team_name == "Team A" else "Team A"
+        opposing_team_heroes = teams[opposing_team_name]
 
-    opposing_team_name = "Team B" if team_name == "Team A" else "Team A"
-    opposing_team_heroes = teams[opposing_team_name]
-    
-    best_picks, worst_picks = get_best_and_worst_picks(team_heroes, opposing_team_heroes, available_heroes)
-    
-    print("\nTop 5 Best Picks:")
-    for hero, score, counter_score, synergy_score in best_picks:
-        print(f"{hero} (Total: {score}, Counter: {counter_score}, Synergy: {synergy_score})")
-    
-    print("\nTop 5 Worst Picks:")
-    for hero, score, counter_score, synergy_score in worst_picks:
-        print(f"{hero} (Total: {score}, Counter: {counter_score}, Synergy: {synergy_score})")
+        best_picks, worst_picks = get_best_and_worst_picks(team_heroes, opposing_team_heroes, available_heroes)
 
-    for _ in range(remaining_picks):
-        print("\nPlease choose your pick from the best picks:")
-        chosen_hero = input(f"Pick one hero: ")
-        if chosen_hero in available_heroes:
-            teams[team_name].append(chosen_hero)
-            available_heroes.remove(chosen_hero)
-            print(f"{team_name} picks {chosen_hero}")
-        else:
-            print("Invalid pick. Please try again.")
-            continue
+        print("\nTop 5 Best Picks:")
+        for hero, score, counter_score, synergy_score in best_picks:
+            print(f"{hero} (Total: {score:.2f}, Counter: {counter_score:.2f}, Synergy: {synergy_score:.2f})")
 
-    current_team = (current_team + 1) % num_teams
+        print("\nTop 5 Worst Picks:")
+        for hero, score, counter_score, synergy_score in reversed(worst_picks):  # Flipped order to show the worst first
+            print(f"{hero} (Total: {score:.2f}, Counter: {counter_score:.2f}, Synergy: {synergy_score:.2f})")
 
+        while True:
+            print("\nPlease choose your pick from the best picks:")
+            chosen_hero = input(f"Pick one hero: ")
+            if chosen_hero in available_heroes:
+                teams[team_name].append(chosen_hero)
+                available_heroes.remove(chosen_hero)
+                print(f"{team_name} picks {chosen_hero}")
+                break
+            else:
+                print("Invalid pick.")
 
 def calculate_team_scores(teams, counterGraph, compatibilityGraph):
     team_scores = {}
@@ -193,4 +190,6 @@ for team, heroes in teams.items():
 print("\nFinal Score:")
 final_scores = calculate_team_scores(teams, counterGraph, compatibilityGraph)
 for team, scores in final_scores.items():
-    print(f"{team} - Synergy Score: {scores['synergy_score']}, Counter Score: {scores['counter_score']}")
+    synergy_score = f"{scores['synergy_score']:.2f}" 
+    counter_score = f"{scores['counter_score']:.2f}" 
+    print(f"{team} - Synergy Score: {synergy_score}, Counter Score: {counter_score}")
