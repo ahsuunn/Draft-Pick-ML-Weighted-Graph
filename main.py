@@ -12,7 +12,7 @@ heroes = []
 counterEdges = []
 compatibilityEdges = []
 
-with open("HeroData.json", "r") as f1, open("heroDictionary.json", "r") as f2:
+with open("data/HeroData.json", "r") as f1, open("data/heroDictionary.json", "r") as f2:
     hero_data = json.load(f1)
     hero_dictionary = json.load(f2)
 
